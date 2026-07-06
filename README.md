@@ -196,9 +196,3 @@ https://alumni-mentorship-platform-42au.onrender.com/docs
 - Containerized the application using **Docker**.
 - Deployed a production-ready application using **Render**, **Vercel**, and **Neon**.
 - Integrated frontend and backend services with environment-based configuration.
-
-
-
-## 📄 License
-
-This project is licensed under the MIT License.
