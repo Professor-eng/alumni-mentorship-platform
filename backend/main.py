@@ -26,6 +26,7 @@ app.add_middleware(
     "http://localhost:5173",
     "http://localhost:3000",
     "https://alumni-mentorship-platform-eight.vercel.app"],
+    allow_origin_regex=r"https://alumni-mentorship-plat(form)?.*\.vercel\.app",
     allow_methods=["*"],
     allow_headers=["*"],
 )
