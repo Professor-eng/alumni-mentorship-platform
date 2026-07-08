@@ -119,13 +119,11 @@ def list_bookings(db: Session = Depends(get_db)):
 @app.post("/bookings", response_model=BookingRead)
 def create_booking(payload: BookingCreate, db: Session = Depends(get_db)):
     mentor = db.get(Mentor, payload.mentor_id)
-
     if not mentor:
         raise HTTPException(
             status_code=404,
             detail="Mentor not found",
         )
-
     clash = db.scalars(
         select(Booking).where(
             Booking.mentor_id == payload.mentor_id,
@@ -133,15 +131,16 @@ def create_booking(payload: BookingCreate, db: Session = Depends(get_db)):
             Booking.status != "declined",
         )
     ).first()
-
     if clash:
         raise HTTPException(
             status_code=409,
             detail="This mentor already has a request for that slot",
         )
-
     booking = Booking(**payload.model_dump())
-
+    db.add(booking)
+    db.commit()
+    db.refresh(booking)
+    return booking
 
 @app.patch("/bookings/{booking_id}", response_model=BookingRead)
 def update_booking_status(
