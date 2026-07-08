@@ -116,7 +116,6 @@ def list_bookings(db: Session = Depends(get_db)):
 
 
 @app.post("/bookings", response_model=BookingRead)
-@app.post("/bookings", response_model=BookingRead)
 def create_booking(payload: BookingCreate, db: Session = Depends(get_db)):
     mentor = db.get(Mentor, payload.mentor_id)
 
